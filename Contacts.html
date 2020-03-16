@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contacts Exercise</title>
+    <script type="text/javascript" src="Contacts.js"></script>
+    <link rel="stylesheet" type="text/css" href="Contacts.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h2>Contacts</h2>
+    <form>
+        <div id = "Taty"></div>
+    </form>
+<script>
+    var i;
+    for (i = 0; i < contacts.length; i++) {
+    $("#Taty").append(contacts[i].name + ' <button type="button">Edit</button><br>');
+    console.log (contacts[i]);
+    }
+    
+</script>
+</body>
+
+</html>
