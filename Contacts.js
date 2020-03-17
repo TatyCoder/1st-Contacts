@@ -1,28 +1,28 @@
 var contacts = [{
-        name: "Name 1",
+        name: "Name1",
         address: {
-            street: "street1",
-            city: "city1",
-            zip: "zip1"
+            street: "Street1",
+            city: "City1",
+            zip: "Zip1"
         },
-        phone: "phone1"
+        phone: "Phone1"
     },
     {
-        name: "Name 2",
+        name: "Name2",
         address: {
-            street: "street2",
-            city: "city2",
-            zip: "zip2",
+            street: "Street2",
+            city: "City2",
+            zip: "Zip2",
         },
-        phone: "phone2"
+        phone: "Phone2"
     },
     {
-        name: "Name 3",
+        name: "Name3",
         address: {
-            street: "street3",
-            city: "city3",
-            zip: "zip3",
+            street: "Street3",
+            city: "City3",
+            zip: "Zip3",
         },
-        phone: "phone3"
+        phone: "Phone3"
     }
 ]

@@ -11,14 +11,36 @@
     <h2>Contacts</h2>
     <form>
         <div id = "Taty"></div>
+        
+        <div id = "Info"></div>
+
+        
+
     </form>
 <script>
-    var i;
-    for (i = 0; i < contacts.length; i++) {
-    $("#Taty").append(contacts[i].name + ' <button type="button">Edit</button><br>');
-    console.log (contacts[i]);
+    function showlist () {
+        $("#Info").html("");
+        var i;
+        for (i = 0; i < contacts.length; i++) {
+        $("#Taty").append(contacts[i].name + ' <button onclick="getinfo('+i+')" type="button">Edit</button><br>');
+        console.log (contacts[i]);
+        }
     }
-    
+
+    function getinfo (i) {
+        $("#Taty").html("");
+        $("#Info").html(`
+        Name: <input type="text" value="`+ contacts[i].name +`"><br>  
+        Street: <input type="text" value="`+ contacts[i].address.street +`"><br>
+        City: <input type="text" value="` + contacts[i].address.city +`"><br>
+        Zip: <input type="text" value="` + contacts[i].address.zip + `"><br>
+        Phone: <input type="text" value="` + contacts[i].phone + `"><br> `);
+        console.log (contacts[i]);
+        $("#Info").append('<button onclick="showlist()" type="button">Cancel</button>');
+    }
+
+showlist (); 
+
 </script>
 </body>
 
