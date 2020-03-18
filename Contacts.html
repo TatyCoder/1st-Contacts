@@ -22,7 +22,7 @@
         $("#Info").html("");
         var i;
         for (i = 0; i < contacts.length; i++) {
-        $("#Taty").append(contacts[i].name + ' <button onclick="getinfo('+i+')" type="button">Edit</button><br>');
+        $("#Taty").append(contacts[i].name + ' <button onclick="getinfo('+i+')" type="button">Edit</button> <button onclick="contacts.splice('+i+', 1)" type="button">Delete</button><br>');
         console.log (contacts[i]);
         }
     }
@@ -37,6 +37,7 @@
         Phone: <input type="text" value="` + contacts[i].phone + `"><br> `);
         console.log (contacts[i]);
         $("#Info").append('<button onclick="showlist()" type="button">Cancel</button>');
+        $("#Info").append('<button class="button save" name="save" type="submit">Apply Changes</button>');
     }
 
 showlist (); 
