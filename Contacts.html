@@ -3,83 +3,36 @@
 
 <head>
     <title>Contacts Exercise</title>
-    <script type="text/javascript" src="Contacts.js"></script>
+    <script type="text/javascript" src="Contacts.js" defer></script>
     <link rel="stylesheet" type="text/css" href="Contacts.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
+    <button id="addNewContactButton">Add New Contact</button>
+    <div style="display:none" id="addForm">
+        <div class="form">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" />
+            <label for="street">Street</label>
+            <input type="text" name="street" id="street" />
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" />
+            <label for="state">State</label>
+            <input type="text" name="state" id="state" />
+            <label for="zip">Zip Code</label>
+            <input type="text" name="zip" id="zip" />
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" id="phone" />
+        </div>
+        <div class="actions">
+            <button id="cancelAddContactButton">Cancel</button>
+            <button id="saveContactButton">Save</button>
+        </div>
+    </div>
     <h2>Contacts</h2>
-    <form>
-        <div id="Taty"></div>
+    <ul id="contacts">
+    </ul>
 
-        <div id="Info"></div>
-
-
-
-    </form>
-    <script>
-        function showlist() {
-            $("#Info").html("");
-            $("#Taty").html("");
-            var i;
-            for (i = 0; i < contacts.length; i++) {
-                $("#Taty").append(contacts[i].name + ' <button onclick="getinfo(' + i +
-                    ')" type="button">Edit</button> <button onclick="contacts.splice(' + i +
-                    ', 1); showlist ()" type="button">Delete</button><br>');
-                console.log(contacts[i]);
-            }
-            $("#Taty").append('<button onclick="displayform()" type="button">Add New Contact</button>');
-        }
-
-        function getinfo(i) {
-            $("#Taty").html("");
-            $("#Info").html(`
-        Name: <input id="name" type="text" value="` + contacts[i].name + `"><br>  
-        Street: <input id="street" type="text" value="` + contacts[i].address.street + `"><br>
-        City: <input id="city" type="text" value="` + contacts[i].address.city + `"><br>
-        Zip: <input id="zip" type="text" value="` + contacts[i].address.zip + `"><br>
-        Phone: <input id="phone" type="text" value="` + contacts[i].phone + `"><br> `);
-            console.log(contacts[i]);
-            $("#Info").append('<button onclick="showlist()" type="button">Cancel</button>');
-            $("#Info").append('<button onclick="saveinfo(' + i + ')" type="button">Apply Changes</button>');
-        }
-
-        function saveinfo(i) {
-            contacts[i].name = $("#name").val();
-            contacts[i].address.street = $("#street").val();
-            contacts[i].address.city = $("#city").val();
-            contacts[i].address.zip = $("#zip").val();
-            contacts[i].phone = $("#phone").val();
-            showlist();
-        }
-
-        function displayform(){
-            $("#Taty").html("");
-            $("#Info").html(`
-        Name: <input id="name" type="text"><br>  
-        Street: <input id="street" type="text"><br>
-        City: <input id="city" type="text"><br>
-        Zip: <input id="zip" type="text"><br>
-        Phone: <input id="phone"><br> `);
-            $("#Info").append('<button onclick="showlist()" type="button">Cancel</button>');
-            $("#Info").append('<button onclick="addnewcontact()" type="button">Apply Changes</button>');
-        }
-    
-        function addnewcontact() {
-            var newcontact = {};
-            newcontact.name = $("#name").val();
-            newcontact.address={};
-            newcontact.address.street = $("#street").val();
-            newcontact.address.city = $("#city").val();
-            newcontact.address.zip = $("#zip").val();
-            newcontact.phone = $("#phone").val();
-            contacts.push(newcontact);
-            showlist();
-        }
-
-        showlist();
-    </script>
 </body>
 
 </html>

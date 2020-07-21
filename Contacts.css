@@ -1,14 +1,19 @@
+html {
+    font-family: sans-serif;
+}
+  
 h2 {
-    text-decoration: underline;
     font-weight: bold;
-    font-size: 2.0rem;
-    color: rgb(69, 100, 185);
+    font-size: 1.5rem;
+    color: rgb(100, 129, 211);
 }
 
-#Taty {
-    color:  rgb(69, 100, 185);
+#contacts {
+    color:  rgb(72, 94, 156);
 }
 
-#Info {
-    color:  rgb(69, 100, 185);
-}
+.form {
+    display: flex;
+    flex-direction: column;
+  }
+  
