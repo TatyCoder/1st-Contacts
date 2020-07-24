@@ -35,28 +35,32 @@ const cancelAddContactButton = document.getElementById('cancelAddContactButton')
 const saveContactButton = document.getElementById('saveContactButton');
 
 const renderContact = (name, address, phone) => {
-    const newContactElement = document.createElement('li');
+    const newContactElement = document.createElement('div');
     newContactElement.innerHTML = `
-      <div>
+      <div class='contact-element'>
         <b>${name}</b>
         <p>${address.street}</p>
         <p>${address.city}</p>
         <p>${address.state}</p>
         <p>${address.zip}</p>
         <p>${phone}</p>
+        <button id="deleteContactButton" onclick="deleteContact('${name}')">Delete</button>
+        <button id="updateContactButton">Update</button>
       </div>
     `;
     const contactsList = document.getElementById('contacts');
     contactsList.append(newContactElement);
+    const updateContactButton = document.getElementById('updateContactButton');
+    updateContactButton.addEventListener('click', updateContact.bind(null, name));
+    console.log(name, address, phone);
 };
 
 const showContacts = () => {
     for (i = 0; i < contacts.length; i++) {
-        console.log(contacts[i]);
+        // console.log(contacts[i]);
         renderContact(contacts[i].name, contacts[i].address, contacts[i].phone)
     }
 }
-showContacts();
 
 const displayForm = () => {
     const addForm = document.getElementById('addForm');
@@ -84,12 +88,33 @@ const saveContact = () => {
         phone: document.getElementById('phone').value
     };
     contacts.push(newContact);
-    showContacts();
+    renderContact(newContact.name, newContact.address, newContact.phone);
     const addForm = document.getElementById('addForm');
     addForm.style.display = 'none';
     const contactsList = document.getElementById('contacts');
     contactsList.style.display = 'block';
 }
+
+const deleteContact = (name) => {
+    let contactIndex = 0;
+    for (const contact of contacts) {
+        if (contact.name === name) {
+            break;
+        }
+        contactIndex++;
+    }
+    contacts.splice(contactIndex, 1);
+    const listRoot = document.getElementById('contacts');
+    listRoot.children[contactIndex].remove();
+    console.log(name);
+}
+
+const updateContact = (name) => {
+    // renderContact(newContact.name, newContact.address, newContact.phone);
+    console.log(name)
+}
+
+showContacts();
 
 addNewContactButton.addEventListener('click', displayForm);
 cancelAddContactButton.addEventListener('click', cancelAddContact);
