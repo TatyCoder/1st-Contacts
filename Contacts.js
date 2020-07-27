@@ -35,6 +35,7 @@ const cancelAddContactButton = document.getElementById('cancelAddContactButton')
 const saveContactButton = document.getElementById('saveContactButton');
 
 const renderContact = (name, address, phone) => {
+    const randomID = Math.random().toString();
     const newContactElement = document.createElement('div');
     newContactElement.innerHTML = `
       <div class='contact-element'>
@@ -45,12 +46,12 @@ const renderContact = (name, address, phone) => {
         <p>${address.zip}</p>
         <p>${phone}</p>
         <button id="deleteContactButton" onclick="deleteContact('${name}')">Delete</button>
-        <button id="updateContactButton">Update</button>
+        <button class="updateContactButton" id="updateContactButton${randomID}">Update</button>
       </div>
     `;
     const contactsList = document.getElementById('contacts');
     contactsList.append(newContactElement);
-    const updateContactButton = document.getElementById('updateContactButton');
+    const updateContactButton = document.getElementById('updateContactButton'+randomID);
     updateContactButton.addEventListener('click', updateContact.bind(null, name));
     console.log(name, address, phone);
 };
@@ -110,8 +111,33 @@ const deleteContact = (name) => {
 }
 
 const updateContact = (name) => {
-    // renderContact(newContact.name, newContact.address, newContact.phone);
-    console.log(name)
+    let contactIndex = 0;
+    for (const contact of contacts) {
+        if (contact.name === name) {
+            break;
+        }
+        contactIndex++;
+    }
+    const contact = contacts[contactIndex];
+    document.getElementById('name').value = contact.name;
+    document.getElementById('street').value = contact.address.street;
+    document.getElementById('city').value = contact.address.city;
+    document.getElementById('state').value = contact.address.state;
+    document.getElementById('zip').value = contact.address.zip;
+    document.getElementById('phone').value = contact.phone;
+    saveContactButton.removeEventListener('click', saveContact);
+    saveContactButton.addEventListener('click', saveExistingContact.bind(null, contactIndex));
+    displayForm();
+}
+
+const saveExistingContact = (index) => {
+    contacts[index].name = document.getElementById('name').value;
+    contacts[index].address.street = document.getElementById('street').value;
+    contacts[index].address.city = document.getElementById('city').value;
+    contacts[index].address.state = document.getElementById('state').value;
+    contacts[index].address.zip = document.getElementById('zip').value;
+    contacts[index].phone = document.getElementById('phone').value;
+    console.log(contacts[index]);
 }
 
 showContacts();
