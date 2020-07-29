@@ -82,6 +82,9 @@ const cancelAddContact = () => {
     addForm.style.display = 'none';
     const contacts = document.getElementById('contacts');
     contacts.style.display = 'block';
+    const addNewContactButton = document.getElementById('addNewContactButton');
+    addNewContactButton.style.display = 'block';
+    document.getElementById('form').reset();
 }
 
 // Event handler for adding a new contact.
@@ -139,6 +142,8 @@ const updateContact = (name) => {
     saveContactButton.removeEventListener('click', saveContact);
     saveButtonAction = saveUpdatedContact.bind(null, contactIndex);
     saveContactButton.addEventListener('click', saveButtonAction);
+    const addNewContactButton = document.getElementById('addNewContactButton');
+    addNewContactButton.style.display = 'none';
     displayForm();
 }
 
@@ -161,6 +166,8 @@ const saveUpdatedContact = (index) => {
     saveContactButton.removeEventListener('click', saveButtonAction);
     saveContactButton.addEventListener('click', saveContact);
     document.getElementById('form').reset();
+    const addNewContactButton = document.getElementById('addNewContactButton');
+    addNewContactButton.style.display = 'block';
 }
 
 const removeAllChildNodes = (parent) => {
