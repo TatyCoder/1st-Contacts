@@ -33,7 +33,10 @@ const contacts = [{
 const addNewContactButton = document.getElementById('addNewContactButton');
 const cancelAddContactButton = document.getElementById('cancelAddContactButton');
 const saveContactButton = document.getElementById('saveContactButton');
-
+let saveButtonAction = null;
+ 
+// This displays a single contact on the page and adds 2 buttons.
+// One button to delete the contact and another to update it.
 const renderContact = (name, address, phone) => {
     const randomID = Math.random().toString();
     const newContactElement = document.createElement('div');
@@ -51,11 +54,12 @@ const renderContact = (name, address, phone) => {
     `;
     const contactsList = document.getElementById('contacts');
     contactsList.append(newContactElement);
-    const updateContactButton = document.getElementById('updateContactButton'+randomID);
+    const updateContactButton = document.getElementById('updateContactButton' + randomID);
     updateContactButton.addEventListener('click', updateContact.bind(null, name));
     console.log(name, address, phone);
 };
 
+// Iterate through the array of contacts and display each one on the page.
 const showContacts = () => {
     for (i = 0; i < contacts.length; i++) {
         // console.log(contacts[i]);
@@ -63,6 +67,8 @@ const showContacts = () => {
     }
 }
 
+// Display the edit form and hide the list so the user can either add a new contact or 
+// update an existing one.
 const displayForm = () => {
     const addForm = document.getElementById('addForm');
     addForm.style.display = 'block';
@@ -70,6 +76,7 @@ const displayForm = () => {
     contacts.style.display = 'none';
 }
 
+// Display the list and hide the edit form. Opposite of displayForm().
 const cancelAddContact = () => {
     const addForm = document.getElementById('addForm');
     addForm.style.display = 'none';
@@ -77,6 +84,7 @@ const cancelAddContact = () => {
     contacts.style.display = 'block';
 }
 
+// Event handler for adding a new contact.
 const saveContact = () => {
     const newContact = {
         name: document.getElementById('name').value,
@@ -96,6 +104,7 @@ const saveContact = () => {
     contactsList.style.display = 'block';
 }
 
+// Event handler for deleting a contact.
 const deleteContact = (name) => {
     let contactIndex = 0;
     for (const contact of contacts) {
@@ -110,6 +119,8 @@ const deleteContact = (name) => {
     console.log(name);
 }
 
+// Event handler for updating an existing contact. This populates the input fields
+// with values from the contact to be edited.
 const updateContact = (name) => {
     let contactIndex = 0;
     for (const contact of contacts) {
@@ -126,11 +137,13 @@ const updateContact = (name) => {
     document.getElementById('zip').value = contact.address.zip;
     document.getElementById('phone').value = contact.phone;
     saveContactButton.removeEventListener('click', saveContact);
-    saveContactButton.addEventListener('click', saveExistingContact.bind(null, contactIndex));
+    saveButtonAction = saveUpdatedContact.bind(null, contactIndex);
+    saveContactButton.addEventListener('click', saveButtonAction);
     displayForm();
 }
 
-const saveExistingContact = (index) => {
+// Event handler for saving an existing contact after it has been edited. 
+const saveUpdatedContact = (index) => {
     contacts[index].name = document.getElementById('name').value;
     contacts[index].address.street = document.getElementById('street').value;
     contacts[index].address.city = document.getElementById('city').value;
@@ -138,6 +151,22 @@ const saveExistingContact = (index) => {
     contacts[index].address.zip = document.getElementById('zip').value;
     contacts[index].phone = document.getElementById('phone').value;
     console.log(contacts[index]);
+    const updateList = document.getElementById('contacts');
+    removeAllChildNodes(updateList);
+    const addForm = document.getElementById('addForm');
+    addForm.style.display = 'none';
+    const contactsList = document.getElementById('contacts');
+    contactsList.style.display = 'block';
+    showContacts();
+    saveContactButton.removeEventListener('click', saveButtonAction);
+    saveContactButton.addEventListener('click', saveContact);
+    document.getElementById('form').reset();
+}
+
+const removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
 
 showContacts();
