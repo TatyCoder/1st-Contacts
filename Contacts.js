@@ -34,7 +34,7 @@ const addNewContactButton = document.getElementById('addNewContactButton');
 const cancelAddContactButton = document.getElementById('cancelAddContactButton');
 const saveContactButton = document.getElementById('saveContactButton');
 let saveButtonAction = null;
- 
+
 // This displays a single contact on the page and adds 2 buttons.
 // One button to delete the contact and another to update it.
 const renderContact = (name, address, phone) => {
@@ -54,15 +54,16 @@ const renderContact = (name, address, phone) => {
     `;
     const contactsList = document.getElementById('contacts');
     contactsList.append(newContactElement);
+    
     const updateContactButton = document.getElementById('updateContactButton' + randomID);
     updateContactButton.addEventListener('click', updateContactHandler.bind(null, name));
+    
     console.log(name, address, phone);
 };
 
 // Iterate through the array of contacts and display each one on the page.
 const showAllContacts = () => {
     for (i = 0; i < contacts.length; i++) {
-        // console.log(contacts[i]);
         renderContact(contacts[i].name, contacts[i].address, contacts[i].phone)
     }
 }
@@ -84,6 +85,7 @@ const cancelAddContactHandler = () => {
     contacts.style.display = 'block';
     const addNewContactButton = document.getElementById('addNewContactButton');
     addNewContactButton.style.display = 'block';
+    
     document.getElementById('form').reset();
 }
 
@@ -101,6 +103,7 @@ const saveContactHandler = () => {
     };
     contacts.push(newContact);
     renderContact(newContact.name, newContact.address, newContact.phone);
+    
     const addForm = document.getElementById('addForm');
     addForm.style.display = 'none';
     const contactsList = document.getElementById('contacts');
@@ -119,6 +122,7 @@ const deleteContactHandler = (name) => {
     contacts.splice(contactIndex, 1);
     const listRoot = document.getElementById('contacts');
     listRoot.children[contactIndex].remove();
+    
     console.log(name);
 }
 
@@ -132,6 +136,7 @@ const updateContactHandler = (name) => {
         }
         contactIndex++;
     }
+
     const contact = contacts[contactIndex];
     document.getElementById('name').value = contact.name;
     document.getElementById('street').value = contact.address.street;
@@ -139,11 +144,14 @@ const updateContactHandler = (name) => {
     document.getElementById('state').value = contact.address.state;
     document.getElementById('zip').value = contact.address.zip;
     document.getElementById('phone').value = contact.phone;
+
     saveContactButton.removeEventListener('click', saveContactHandler);
     saveButtonAction = saveUpdatedContactHandler.bind(null, contactIndex);
     saveContactButton.addEventListener('click', saveButtonAction);
+    
     const addNewContactButton = document.getElementById('addNewContactButton');
     addNewContactButton.style.display = 'none';
+    
     displayFormHandler();
 }
 
@@ -156,16 +164,22 @@ const saveUpdatedContactHandler = (index) => {
     contacts[index].address.zip = document.getElementById('zip').value;
     contacts[index].phone = document.getElementById('phone').value;
     console.log(contacts[index]);
+    
     const updateList = document.getElementById('contacts');
     removeAllChildNodes(updateList);
+    
     const addForm = document.getElementById('addForm');
     addForm.style.display = 'none';
     const contactsList = document.getElementById('contacts');
     contactsList.style.display = 'block';
+    
     showAllContacts();
+    
     saveContactButton.removeEventListener('click', saveButtonAction);
     saveContactButton.addEventListener('click', saveContactHandler);
+    
     document.getElementById('form').reset();
+    
     const addNewContactButton = document.getElementById('addNewContactButton');
     addNewContactButton.style.display = 'block';
 }
